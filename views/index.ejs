@@ -12,8 +12,25 @@
     </div>
 </div>
 
-<div class="row">
-    <!-- <%# meals.forEach(meal => {}) %> -->
+<div class="ui four stackable special cards">
+    <% meals.forEach(meal => { %>
+        <div class="card">
+            <div class="blurring dimmable image">
+                <div class="ui dimmer">
+                    <div class="content">
+                        <div class="center">
+                            <div class="ui inverted button">More Info</div>
+                        </div>
+                    </div>
+                </div>
+                <img src="<%= meal.image %>">
+            </div>
+            <div class="center content">
+                <!-- <a href="/meals/<%#= meal._id %>" class="ui violet button">More Info</a> -->
+                <%= meal.description.substring(0, 100) + '...' %>
+            </div>
+        </div>
+    <% }) %>
 </div>
 
 <%- include ('partials/footer') %> 

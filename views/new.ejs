@@ -4,7 +4,7 @@
     <div class="column">
         <h1 style="text-align: center">Add A New Dish</h1>
         <div style="width: 40%; margin: 0 auto">
-            <form class="ui form segment formPadding" action="POST">
+            <form class="ui form segment formPadding" action="/meals" method="POST">
                 <div class="field">
                     <label>Name</label>
                     <input type="text" name="meal[name]" placeholder="Name">
@@ -19,7 +19,7 @@
                 </div>
                 <div class="field">
                     <label>Price</label>
-                    <input type="number" name="meal[price]" placeholder="Price" min="1">
+                    <input type="number" name="meal[price]" placeholder="Price" min="0.01">
                 </div>
                 <div class="field">
                     <button class="ui teal basic button" type="submit">Add Dish</button>
@@ -33,7 +33,7 @@
     <div class="column">
         <h1 style="text-align: center">Add A New Dish</h1>
         <div style="width: 100%; margin: 0 auto 0 auto">
-            <form class="ui form segment formPadding" action="POST">
+            <form class="ui form segment formPadding" action="/meals" method="POST">
                 <div class="field">
                     <label>Name</label>
                     <input type="text" name="meal[name]" placeholder="Name">
@@ -62,7 +62,7 @@
     <div class="column">
         <h1 style="text-align: center">Add A New Dish</h1>
         <div style="width: 60%; margin: 0 auto 0 auto">
-            <form class="ui form segment formPadding" action="POST">
+            <form class="ui form segment formPadding" action="/meals" method="POST">
                 <div class="field">
                     <label>Name</label>
                     <input type="text" name="meal[name]" placeholder="Name">
