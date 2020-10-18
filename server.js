@@ -8,7 +8,8 @@ const express    = require('express'),
 
 // Remember to remove the dev dburl before pushing to git
 
-mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
+.catch(error => console.log(error.reason));
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
