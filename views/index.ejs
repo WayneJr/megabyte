@@ -10,6 +10,10 @@
             <a class="ui violet button" href="/meals/new">Add new dish</a>
         </div>
     </div>
+</div> 
+
+<div class="ui tablet mobile only">
+    <br>
 </div>
 
 <div class="ui four stackable special cards">
@@ -26,7 +30,7 @@
                 <img src="<%= meal.image %>">
             </div>
             <div class="center content">
-                <!-- <a href="/meals/<%#= meal._id %>" class="ui violet button">More Info</a> -->
+                <a href="/meals/<%#= meal._id %>" class="header"><%= meal.name %></a><hr>
                 <%= meal.description.substring(0, 100) + '...' %>
             </div>
         </div>
