@@ -3,6 +3,7 @@ const express    = require('express'),
       port       = process.env.PORT || 3000,
       dbUrl      = process.env.DATABASEURL || 'mongodb+srv://bishop:bishop@restfulcluster.creso.mongodb.net/mega_byte_dev',
       mongoose   = require('mongoose'),
+      methodOverride = require('method-override'),
       bodyParser = require('body-parser'),
       router     = require('./api/router');
 
@@ -12,6 +13,7 @@ mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 .catch(error => console.log(error.reason));
 
 app.set('view engine', 'ejs');
+app.use(methodOverride('_method'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 

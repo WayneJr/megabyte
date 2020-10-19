@@ -46,4 +46,19 @@ module.exports = app => {
         .then(meal => res.render('edit', {meal: meal}))
         .catch(err => console.log(err));
     });
+
+    // Update route
+    app.put('/meals/:id', (req, res) => {
+        Meal.findByIdAndUpdate(req.params.id, req.body.meal)
+        .then(meal => res.redirect('/meals/'+ req.params.id))
+        .catch(err => console.log(err));
+    });
+
+    // Delete Route
+    app.delete('/meals/:id', (req, res) => {
+        Meal.findByIdAndDelete(req.params.id)
+        .then(() => res.redirect('/meals'))
+        .catch(err => console.log(err));
+    });
+
 }
