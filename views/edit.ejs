@@ -1,0 +1,91 @@
+<%- include ('partials/header') %>
+
+<div class="computer only row space">
+    <div class="column">
+        <h1 style="text-align: center">Add A New Dish</h1>
+        <div style="width: 40%; margin: 0 auto">
+            <form class="ui form segment formPadding" action="/meals/<%= meal._id %>?_method=PUT" method="POST">
+                <div class="field">
+                    <label>Name</label>
+                    <input type="text" name="meal[name]" placeholder="Name" value="<%= meal.name %>">
+                </div>
+                <div class="field">
+                    <label>Image</label>
+                    <input type="text" name="meal[image]" placeholder="Image" value="<%= meal.image %>">
+                </div>
+                <div class="field">
+                    <label>Description</label>
+                    <input type="text" name="meal[description]" placeholder="Description" value="<%= meal.description %>">
+                </div>
+                <div class="field">
+                    <label>Price</label>
+                    <input type="number" name="meal[price]" placeholder="Price" value="<%= meal.price %>" min="0.01" step="0.01">
+                </div>
+                <div class="field">
+                    <button class="ui teal basic button" type="submit">Edit Dish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="mobile only row space">
+    <div class="column">
+        <h1 style="text-align: center">Add A New Dish</h1>
+        <div style="width: 100%; margin: 0 auto 0 auto">
+            <form class="ui form segment formPadding" action="/meals/<%= meal._id %>?_method=PUT" method="POST">
+                <div class="field">
+                    <label>Name</label>
+                    <input type="text" name="meal[name]" placeholder="Name" value="<%= meal.name %>">
+                </div>
+                <div class="field">
+                    <label>Image</label>
+                    <input type="text" name="meal[image]" placeholder="Image" value="<%= meal.image %>">
+                </div>
+                <div class="field">
+                    <label>Description</label>
+                    <input type="text" name="meal[description]" placeholder="Description" value="<%= meal.description %>">
+                </div>
+                <div class="field">
+                    <label>Price</label>
+                    <input type="number" name="meal[price]" placeholder="Price" value="<%= meal.price %>" min="0.01" step="0.01">
+                </div>
+                <div class="field">
+                    <button class="ui teal basic button" type="submit">Edit Dish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="tablet only row space">
+    <div class="column">
+        <h1 style="text-align: center">Add A New Dish</h1>
+        <div style="width: 60%; margin: 0 auto 0 auto">
+            <form class="ui form segment formPadding" action="/meals/<%= meal._id %>?_method=PUT" method="POST">
+                <div class="field">
+                    <label>Name</label>
+                    <input type="text" name="meal[name]" placeholder="Name" value="<%= meal.name %>">
+                </div>
+                <div class="field">
+                    <label>Image</label>
+                    <input type="text" name="meal[image]" placeholder="Image" value="<%= meal.image %>">
+                </div>
+                <div class="field">
+                    <label>Description</label>
+                    <input type="text" name="meal[description]" placeholder="Description" value="<%= meal.description %>">
+                </div>
+                <div class="field">
+                    <label>Price</label>
+                    <input type="number" name="meal[price]" placeholder="Price" value="<%= meal.price %>" min="0.01" step="0.01">
+                </div>
+                <div class="field">
+                    <button class="ui teal basic button" type="submit">Edit Dish</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
+
+<%- include ('partials/footer') %>
