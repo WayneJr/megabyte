@@ -32,4 +32,18 @@ module.exports = app => {
             }
         });
     });
+
+    // Show route
+    app.get('/meals/:id', (req, res) => {
+        Meal.findById(req.params.id)
+        .then(meal => res.render('show', {meal: meal}))
+        .catch(err => console.log(err));
+    });
+
+    // Edit route
+    app.get('/meals/:id/edit', (req, res) => {
+        Meal.findById(req.params.id)
+        .then(meal => res.render('edit', {meal: meal}))
+        .catch(err => console.log(err));
+    });
 }

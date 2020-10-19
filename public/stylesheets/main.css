@@ -21,6 +21,10 @@
 	display: none;
 }
 
+#delete {
+    display: inline;
+}
+
 /* .formPadding { */
     /* padding: 2em; */
 /* } */
