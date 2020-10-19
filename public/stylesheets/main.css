@@ -11,6 +11,16 @@
     padding: 5em;
 }
 
+.ui.navbar {
+    margin-top: 20px !important;
+}
+
+.ui.vertical.menu{
+	margin-top: -15px !important;
+	width: 100%;
+	display: none;
+}
+
 /* .formPadding { */
     /* padding: 2em; */
 /* } */

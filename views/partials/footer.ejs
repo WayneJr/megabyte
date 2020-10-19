@@ -4,6 +4,16 @@
         $('.special.cards .image').dimmer({
             on: 'hover'
         });
+
+        $(document).ready(function(){
+	        $('.right.menu.open').on("click",function(e){
+            e.preventDefault();
+		      $('.ui.vertical.menu').toggle();
+	        });
+    
+	        $('.ui.dropdown').dropdown();
+        });
+  
     </script>
 </body>
 </html>
