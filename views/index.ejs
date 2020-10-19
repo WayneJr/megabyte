@@ -23,14 +23,14 @@
                 <div class="ui dimmer">
                     <div class="content">
                         <div class="center">
-                            <div class="ui inverted button">More Info</div>
+                            <a href="/meals/<%= meal._id %>" class="ui inverted button">More Info</a>
                         </div>
                     </div>
                 </div>
                 <img src="<%= meal.image %>">
             </div>
             <div class="center content">
-                <a href="/meals/<%#= meal._id %>" class="header"><%= meal.name %></a><hr>
+                <a href="/meals/<%= meal._id %>" class="header"><%= meal.name %></a><hr>
                 <%= meal.description.substring(0, 100) + '...' %>
             </div>
         </div>
