@@ -1,10 +1,5 @@
 <%- include ('../partials/header.ejs')%>
 
-    <!-- <h1><%= meal.name %></h1>
-    <img src="<%= meal.image %>" alt="<%= meal.name %>">
-    <p><%= meal.description %></p> -->
-
-
     <div class="ui main text container segment">
         <div class="ui huge header"><%= meal.name %></div>
         <div class="ui divider"></div>
@@ -28,15 +23,21 @@
             <a class="ui green button" href="/meals/<%= meal._id %>/comments/new">Leave A Review</a>
         </div>
         <div class="ui divider"></div>
+
+        <div class="ui comments">
         <% meal.comments.forEach(comment => { %>
-            <div class="ui comments">
-                <div class="column">
-                    <strong><%= comment.author %></strong>
-                    <span class="right floated">10 days ago</span>
-                    <p><%= comment.text %></p>
+            
+            <div class="comment">
+                <div class="content">
+                    <a class="author"><%= comment.author %></a>
+                    <div class="metadata">
+                        <span class="date">10 days ago</span>
+                    </div>
+                    <div class="text"><%= comment.text %></div>
                 </div>
             </div>
         <% }) %> 
+    </div>
     </div>
 
 <%- include ('../partials/footer.ejs')%>
