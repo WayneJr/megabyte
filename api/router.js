@@ -84,10 +84,17 @@ module.exports = app => {
         .then(meal => {
             Comment.create(req.body.comment)
             .then(comment => {
+                // Associating users with comments
+                comment.author.id = req.user._id;
+                comment.author.username = req.user.username;
+                comment.author.name = req.user.name;
+                console.log(req.user);                
+                comment.save();
+
                 meal.comments.push(comment);
                 meal.save();
-                return res.redirect('/meals/' + req.params.id);
-            });
+                return res.redirect('/meals/' + meal._id);
+            }).catch(err => console.log(err));
         });
     });
 
