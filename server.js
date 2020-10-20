@@ -8,7 +8,9 @@ const express    = require('express'),
       passport   = require('passport'),
       LocalStrategy = require('passport-local'),
       session    = require('express-session'),
-      router     = require('./api/router'),
+      mealRoutes     = require('./api/routes/meal'),
+      commentRoutes = require('./api/routes/comment'),
+      authRoutes = require('./api/routes/index'),
       User       = require('./models/user');
 
 // Remember to remove the dev dburl before pushing to git
@@ -34,9 +36,13 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();
-})
+});
 
-router(app);
+// router(app);
+// routes
+app.use('/meals', mealRoutes); // Meal Routes
+app.use('/meals/:id/comments', commentRoutes); // Comment Routes
+app.use(authRoutes);
 
 app.listen(port, process.env.IP, () => console.log('listening on port: ' + port));
 
