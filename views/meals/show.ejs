@@ -1,4 +1,4 @@
-<%- include ('partials/header.ejs')%>
+<%- include ('../partials/header.ejs')%>
 
     <!-- <h1><%= meal.name %></h1>
     <img src="<%= meal.image %>" alt="<%= meal.name %>">
@@ -7,7 +7,7 @@
 
     <div class="ui main text container segment">
         <div class="ui huge header"><%= meal.name %></div>
-        <hr>
+        <div class="ui divider"></div>
         <div class="ui top attached">
             <div class="item">
                 <img src="<%= meal.image %>" alt="<%= meal.name %>" class="ui fluid rounded image">
@@ -23,4 +23,20 @@
         </form>
     </div>
 
-<%- include ('partials/footer.ejs')%>
+    <div class="ui main text secondary container segment">
+        <div>
+            <a class="ui green button" href="/meals/<%= meal._id %>/comments/new">Leave A Review</a>
+        </div>
+        <div class="ui divider"></div>
+        <% meal.comments.forEach(comment => { %>
+            <div class="ui comments">
+                <div class="column">
+                    <strong><%= comment.author %></strong>
+                    <span class="right floated">10 days ago</span>
+                    <p><%= comment.text %></p>
+                </div>
+            </div>
+        <% }) %> 
+    </div>
+
+<%- include ('../partials/footer.ejs')%>
