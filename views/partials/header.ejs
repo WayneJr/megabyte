@@ -19,9 +19,13 @@
                     <a href="/" class="item">Home</a>
                     <a href="/meals" class="item">Menu</a>
                     <div class="right menu">
-                        <a href="/login" class="item">Sign In</a>
-                        <a href="/register" class="item">Register</a>
-                        <a href="/logout" class="item">Logout</a>
+                        <% if (!currentUser) { %>
+                            <a href="/login" class="item">Sign In</a>
+                            <a href="/register" class="item">Register</a>
+                        <% } else { %>
+                            <a href="" class="item">Welcome, <%= currentUser.name %>!</a>
+                            <a href="/logout" class="item">Logout</a>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -37,8 +41,13 @@
             <div class="ui vertical navbar menu" style="width: 100%;">
                 <a href="/" class="active item">Home</a>
                 <a href="/meals" class="item">Menu</a>
-                <a href="/login" class="item">Sign In</a>
-                <a href="/register" class="item">Register</a>
+                    <% if (!currentUser) { %>
+                        <a href="/login" class="item">Sign In</a>
+                        <a href="/register" class="item">Register</a>
+                    <% } else { %>
+                        <a href="" class="item">Welcome, <%= currentUser.name %>!</a>
+                        <a href="/logout" class="item">Logout</a>
+                    <% } %>
             </div>
         </nav>
         
