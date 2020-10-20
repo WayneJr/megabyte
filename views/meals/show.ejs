@@ -34,6 +34,12 @@
                         <span class="date">10 days ago</span>
                     </div>
                     <div class="text"><%= comment.text %></div>
+                    <div class="actions">
+                        <a href="/meals/<%= meal._id %>/comments/<%= comment._id %>/edit" class="reply">Edit</a>
+                        <form id="delete" action="/meals/<%= meal._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                            <a onclick="$(this).closest('form').submit()" class="reply">Delete</a>
+                        </form>
+                    </div>
                 </div>
             </div>
         <% }) %> 

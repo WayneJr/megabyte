@@ -21,13 +21,22 @@ module.exports = app => {
         })
     });
 
-    app.get('/meals/new', (req, res) => {
+    // New meal form 
+    app.get('/meals/new', isLoggedIn, (req, res) => {
         res.render('meals/new');
     })
 
     // Create route
-    app.post('/meals', (req, res) => {
-        Meal.create(req.body.meal, (err, meal) => {
+    app.post('/meals', isLoggedIn, (req, res) => {
+        const newMeal = req.body.meal;
+        const author = {
+            id: req.user._id,
+            name: req.user.name,
+            username: req.user.username
+        };
+        newMeal.author = author;
+        meal.save();
+        Meal.create(newMeal, (err, meal) => {
             if (err) {
                 console.log(err);
             } else {
@@ -48,21 +57,21 @@ module.exports = app => {
     });
 
     // Edit route
-    app.get('/meals/:id/edit', (req, res) => {
+    app.get('/meals/:id/edit', isLoggedIn, (req, res) => {
         Meal.findById(req.params.id)
         .then(meal => res.render('meals/edit', {meal: meal}))
         .catch(err => console.log(err));
     });
 
     // Update route
-    app.put('/meals/:id', (req, res) => {
+    app.put('/meals/:id', isLoggedIn, (req, res) => {
         Meal.findByIdAndUpdate(req.params.id, req.body.meal)
         .then(meal => res.redirect('/meals/'+ req.params.id))
         .catch(err => console.log(err));
     });
 
     // Delete Route
-    app.delete('/meals/:id', (req, res) => {
+    app.delete('/meals/:id', isLoggedIn, (req, res) => {
         Meal.findByIdAndDelete(req.params.id)
         .then(() => res.redirect('/meals'))
         .catch(err => console.log(err));
@@ -73,13 +82,15 @@ module.exports = app => {
     // COMMENTS
     // ===========
 
-    app.get('/meals/:id/comments/new', (req, res) => {
+    // Create Comment form route
+    app.get('/meals/:id/comments/new', isLoggedIn, (req, res) => {
         Meal.findById(req.params.id)
         .then(meal => res.render('comments/new', {meal_id: meal._id, meal_name: meal.name}))
         .catch(err => console.log(err));
     });
 
-    app.post('/meals/:id/comments', (req, res) => {
+    // Create Comment route
+    app.post('/meals/:id/comments', isLoggedIn, (req, res) => {
         Meal.findById(req.params.id)
         .then(meal => {
             Comment.create(req.body.comment)
@@ -97,6 +108,34 @@ module.exports = app => {
             }).catch(err => console.log(err));
         });
     });
+
+    // Edit Comment
+    app.get('/meals/:id/comments/:comment_id/edit', (req, res) => {
+        Comment.findById(req.params.comment_id)
+        .then(comment => res.render('comments/edit', {meal_id: req.params.id, comment: comment}))
+    });
+
+    // Comment Update Route
+    app.put('/meals/:id/comments/:comment_id', (req, res) => {
+        Meal.findById(req.params.id)
+        .then(meal => {
+            Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment)
+            .then(() => {
+                return res.redirect('/meals/' + meal._id);
+            }).catch(err => console.log(err));
+        });
+    });
+
+    // Comment Delete Route
+    app.delete('/meals/:id/comments/:comment_id', (req, res) => {
+        Meal.findById(req.params.id)
+        .then(meal => {
+            Comment.findByIdAndDelete(req.params.comment_id)
+            .then(() => {
+                return res.redirect('/meals/' + meal._id);
+            }).catch(err => console.log(err));
+        });
+    })
 
 
     // ===========
@@ -137,5 +176,9 @@ module.exports = app => {
     app.get('/logout', (req, res) => {
         req.logout();
         res.redirect('/meals');
-    })
+    });
+
+    function isLoggedIn(req, res, next) {
+        return req.isAuthenticated() ? next() : res.redirect('/login');
+    }
 }

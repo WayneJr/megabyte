@@ -5,6 +5,14 @@ const mealSchema = new mongoose.Schema({
     image: String,
     description: String,
     price: String,
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }, 
+        name: String,
+        username: String
+    },
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment'
