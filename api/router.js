@@ -1,5 +1,7 @@
 const Meal = require('../models/meal');
 const Comment = require('../models/comment');
+const User = require('../models/user');
+const passport = require('passport');
 
 
 module.exports = app => {
@@ -41,7 +43,6 @@ module.exports = app => {
         .exec()
         .then(meal => {
             res.render('meals/show', {meal: meal});
-            console.log(meal.comments);
         })
         .catch(err => console.log(err));
     });
@@ -89,4 +90,45 @@ module.exports = app => {
             });
         });
     });
+
+
+    // ===========
+    // Auth routes
+    // ===========
+
+    // Sign Up functionality
+
+    app.get('/register', (req, res) => {
+        res.render('register');
+    });
+
+    app.post('/register', (req, res) => {
+        User.register(new User({name: req.body.name, username: req.body.username}), req.body.password, (err, user) => {
+            if (err) {
+                console.log(err);
+                return res.render('register');
+            }
+            passport.authenticate('local')(req, res, () => {
+                res.redirect('/meals');
+            });
+        });
+    });
+
+    
+    // Login Functionality
+    app.get('/login', (req, res) => {
+        res.render('login');
+    });
+
+
+    app.post('/login', passport.authenticate('local', {
+        successRedirect: '/meals',
+        failureRedirect: '/login'
+    }), (req, res) => {
+    });
+
+    app.get('/logout', (req, res) => {
+        req.logout();
+        res.redirect('/meals');
+    })
 }
