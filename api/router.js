@@ -1,9 +1,10 @@
 const Meal = require('../models/meal');
+const Comment = require('../models/comment');
 
 
 module.exports = app => {
     app.get('/', (req, res) => {
-        res.render('landing');
+        res.render('meals/landing');
     });
 
     
@@ -13,13 +14,13 @@ module.exports = app => {
             if (err) {
                 console.log(err);
             } else {
-                res.render('index', {meals: meals});
+                res.render('meals/index', {meals: meals});
             }
         })
     });
 
     app.get('/meals/new', (req, res) => {
-        res.render('new');
+        res.render('meals/new');
     })
 
     // Create route
@@ -36,14 +37,19 @@ module.exports = app => {
     // Show route
     app.get('/meals/:id', (req, res) => {
         Meal.findById(req.params.id)
-        .then(meal => res.render('show', {meal: meal}))
+        .populate('comments')
+        .exec()
+        .then(meal => {
+            res.render('meals/show', {meal: meal});
+            console.log(meal.comments);
+        })
         .catch(err => console.log(err));
     });
 
     // Edit route
     app.get('/meals/:id/edit', (req, res) => {
         Meal.findById(req.params.id)
-        .then(meal => res.render('edit', {meal: meal}))
+        .then(meal => res.render('meals/edit', {meal: meal}))
         .catch(err => console.log(err));
     });
 
@@ -61,4 +67,26 @@ module.exports = app => {
         .catch(err => console.log(err));
     });
 
+
+    // ===========
+    // COMMENTS
+    // ===========
+
+    app.get('/meals/:id/comments/new', (req, res) => {
+        Meal.findById(req.params.id)
+        .then(meal => res.render('comments/new', {meal_id: meal._id, meal_name: meal.name}))
+        .catch(err => console.log(err));
+    });
+
+    app.post('/meals/:id/comments', (req, res) => {
+        Meal.findById(req.params.id)
+        .then(meal => {
+            Comment.create(req.body.comment)
+            .then(comment => {
+                meal.comments.push(comment);
+                meal.save();
+                return res.redirect('/meals/' + req.params.id);
+            });
+        });
+    });
 }
