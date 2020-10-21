@@ -58,14 +58,20 @@ router.get('/:id/edit', checkMealOwnership, (req, res) => {
 // Update route
 router.put('/:id', checkMealOwnership, (req, res) => {
     Meal.findByIdAndUpdate(req.params.id, req.body.meal)
-    .then(meal => res.redirect('/meals/'+ req.params.id))
+    .then(meal => {
+        req.flash('success', 'Meal updated');
+        res.redirect('/meals/'+ req.params.id);
+    })
     .catch(err => console.log(err));
 });
 
 // Delete Route
 router.delete('/:id', checkMealOwnership, (req, res) => {
     Meal.findByIdAndDelete(req.params.id)
-    .then(() => res.redirect('/meals'))
+    .then(() => {
+        req.flash('success', 'Successfully deleted meal');
+        res.redirect('/meals');
+    })
     .catch(err => console.log(err));
 });
 

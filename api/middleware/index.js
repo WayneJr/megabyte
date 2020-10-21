@@ -12,9 +12,14 @@ module.exports =  {
                 if (meal.author.id.equals(req.user._id)) {
                     next();
                 } else {
+                    req.flash('error', "You don't have permission to do that")
+
                     res.redirect('back');
                 }
-            }).catch(err => res.redirect('back'));
+            }).catch(err => {
+                req.flash('error', 'Please Log In');
+                res.redirect('back')
+            });
         }
     },
 
@@ -27,13 +32,22 @@ module.exports =  {
                 if (comment.author.id.equals(req.user._id)) {
                     next();
                 } else {
+                    req.flash('error', "You don't have permission to do that")
                     res.redirect('back');
                 }
-            }).catch(err => res.redirect('back'));
+            }).catch(err => {
+                req.flash('error', 'Please Log In');
+                res.redirect('back')
+            });
         }
     },
 
     isLoggedIn: function(req, res, next) {
-        return req.isAuthenticated() ? next() : res.redirect('/login');
+        // return req.isAuthenticated() ? next() : res.redirect('/login');
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        req.flash('error', 'Please Log In');
+        return res.redirect('/login');
     }
 }

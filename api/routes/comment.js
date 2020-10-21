@@ -46,6 +46,7 @@ router.put('/:comment_id', checkCommentOwnership, (req, res) => {
     .then(meal => {
         Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment)
         .then(() => {
+            req.flash('success', 'Comment successfully updated');
             return res.redirect('/meals/' + meal._id);
         }).catch(err => console.log(err));
     });
@@ -57,6 +58,7 @@ router.delete('/:comment_id', checkCommentOwnership, (req, res) => {
     .then(meal => {
         Comment.findByIdAndDelete(req.params.comment_id)
         .then(() => {
+            req.flash('success', 'Comment Deleted');
             return res.redirect('/meals/' + meal._id);
         }).catch(err => console.log(err));
     });
