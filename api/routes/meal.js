@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Meal = require('../../models/meal');
-const {isLoggedIn} = require('../middleware/index');
+const {isLoggedIn, checkMealOwnership} = require('../middleware/index');
 
 // Read Route
 router.get('/', (req, res) => {
@@ -28,7 +28,6 @@ router.post('/', isLoggedIn, (req, res) => {
         username: req.user.username
     };
     newMeal.author = author;
-    meal.save();
     Meal.create(newMeal, (err, meal) => {
         if (err) {
             console.log(err);
@@ -50,21 +49,21 @@ router.get('/:id', (req, res) => {
 });
 
 // Edit route
-router.get('/:id/edit', isLoggedIn, (req, res) => {
+router.get('/:id/edit', checkMealOwnership, (req, res) => {
     Meal.findById(req.params.id)
     .then(meal => res.render('meals/edit', {meal: meal}))
     .catch(err => console.log(err));
 });
 
 // Update route
-router.put('/:id', isLoggedIn, (req, res) => {
+router.put('/:id', checkMealOwnership, (req, res) => {
     Meal.findByIdAndUpdate(req.params.id, req.body.meal)
     .then(meal => res.redirect('/meals/'+ req.params.id))
     .catch(err => console.log(err));
 });
 
 // Delete Route
-router.delete('/:id', isLoggedIn, (req, res) => {
+router.delete('/:id', checkMealOwnership, (req, res) => {
     Meal.findByIdAndDelete(req.params.id)
     .then(() => res.redirect('/meals'))
     .catch(err => console.log(err));

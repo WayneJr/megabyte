@@ -1,13 +1,16 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 const Meal = require('../../models/meal');
 const Comment = require('../../models/comment');
-const {isLoggedIn} = require('../middleware/index');
+const {isLoggedIn, checkCommentOwnership} = require('../middleware/index');
 
 // Create Comment form route
 router.get('/new', isLoggedIn, (req, res) => {
     Meal.findById(req.params.id)
-    .then(meal => res.render('comments/new', {meal_id: meal._id, meal_name: meal.name}))
+    .then(meal => {
+        console.log(meal);
+        res.render('comments/new', {meal_id: meal._id, meal_name: meal.name});
+    })
     .catch(err => console.log(err));
 });
 
@@ -32,13 +35,13 @@ router.post('/', isLoggedIn, (req, res) => {
 });
 
 // Edit Comment
-router.get('/:comment_id/edit', (req, res) => {
+router.get('/:comment_id/edit', checkCommentOwnership, (req, res) => {
     Comment.findById(req.params.comment_id)
     .then(comment => res.render('comments/edit', {meal_id: req.params.id, comment: comment}))
 });
 
 // Comment Update Route
-router.put('/:comment_id', (req, res) => {
+router.put('/:comment_id', checkCommentOwnership, (req, res) => {
     Meal.findById(req.params.id)
     .then(meal => {
         Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment)
@@ -49,7 +52,7 @@ router.put('/:comment_id', (req, res) => {
 });
 
 // Comment Delete Route
-router.delete('/:comment_id', (req, res) => {
+router.delete('/:comment_id', checkCommentOwnership, (req, res) => {
     Meal.findById(req.params.id)
     .then(meal => {
         Comment.findByIdAndDelete(req.params.comment_id)
