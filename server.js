@@ -1,7 +1,10 @@
+require('dotenv').config();
+
+
 const express    = require('express'),
       app        = express(),
       port       = process.env.PORT || 3000,
-      dbUrl      = process.env.DATABASEURL || 'mongodb+srv://bishop:bishop@restfulcluster.creso.mongodb.net/mega_byte_dev',
+      dbUrl      = process.env.DATABASEURL,
       mongoose   = require('mongoose'),
       methodOverride = require('method-override'),
       bodyParser = require('body-parser'),
