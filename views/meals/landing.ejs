@@ -1,11 +1,43 @@
-<%- include ('../partials/header') %> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MegaByte</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
+    <link rel="stylesheet" href="/stylesheets/landing.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" async></script>
+     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js" async></script>
+</head>
+<body>
+        
+        <div class="ui container">
+            <% if (error && error.length > 0) { %>
+                <div class="ui negative message">
+                    <%= error %> 
+                </div>
+            <% } %>
+             
+            <% if (success && success.length > 0) { %>
+                <div class="ui positive message">
+                    <%= success %> 
+                </div>
+            <% } %> 
+        </div>
 
-<div class="row space">
-    <div class="column">
-            <a href="/meals">all meals</a>
-    </div>
-</div>
+        <div id="landing-header">
+            <h1>Welcome to YelpCamp</h1>
+            <a class="ui huge inverted button" href="/campgrounds">View All Campgrounds</a>
+        </div>
+    
+        <ul class="slideshow">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    
+    <%- include ('../partials/footer') %>
 
-
-
-<%- include ('../partials/footer') %> 
