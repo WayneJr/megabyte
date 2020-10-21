@@ -5,20 +5,30 @@
         <div class="ui divider"></div>
         <div class="ui top attached">
             <div class="item">
-                <img src="<%= meal.image %>" alt="<%= meal.name %>" class="ui fluid rounded image">
+                <img src="<%= meal.image %>" alt="<%= meal.name %>" class="ui rounded image">
+            </div>
+            <br>
+            <div class="item">
+                <h4 class="ui right floated item">
+                    $<%= meal.price %>
+                </h4>
             </div>
             <br>
             <div class="description">
                 <%= meal.description %>
             </div>
         </div>
+        <br>
+        <p>
+            <em>Submitted by <%= meal.author.name %></em>
+        </p>
         <a href="/meals/<%= meal._id %>/edit" class="ui inverted green button">Edit</a>
         <form id="delete" action="/meals/<%= meal._id %>?_method=DELETE" method="POST">
             <button type="submit" class="ui inverted red button">Delete</button>
         </form>
     </div>
 
-    <div class="ui main text secondary container segment">
+    <div style="width: 100%; margin-bottom: 1em;" class="ui main text secondary container segment">
         <div>
             <a class="ui green button" href="/meals/<%= meal._id %>/comments/new">Leave A Review</a>
         </div>

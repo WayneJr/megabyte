@@ -25,6 +25,20 @@
     display: inline;
 }
 
+div [class*="left floated"] {
+    float: left;
+    margin-left: 0.25em;
+}
+  
+div [class*="right floated"] {
+    float: right;
+    margin-right: 0.25em;
+}
+
+#realImage {
+    display: none;
+}
+
 /* .formPadding { */
     /* padding: 2em; */
 /* } */
