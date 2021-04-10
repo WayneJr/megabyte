@@ -1,78 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const Meal = require('../../models/meal');
+
+const { mealIndex, mealNew, createMeal, mealEdit, mealShow, mealUpdate, mealDelete } = require('../controllers/meal');
 const {isLoggedIn, checkMealOwnership} = require('../middleware/index');
 
 // Read Route
-router.get('/', (req, res) => {
-    Meal.find({}, (err, meals) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('meals/index', {meals: meals});
-        }
-    })
-});
+router.get('/', mealIndex);
 
 // New meal form 
-router.get('/new', isLoggedIn, (req, res) => {
-    res.render('meals/new');
-})
+router.get('/new', isLoggedIn, mealNew)
 
 // Create route
-router.post('/', isLoggedIn, (req, res) => {
-    const newMeal = req.body.meal;
-    const author = {
-        id: req.user._id,
-        name: req.user.name,
-        username: req.user.username
-    };
-    newMeal.author = author;
-    Meal.create(newMeal, (err, meal) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect('/meals');
-        }
-    });
-});
+router.post('/', isLoggedIn, createMeal);
 
 // Show route
-router.get('/:id', (req, res) => {
-    Meal.findById(req.params.id)
-    .populate('comments')
-    .exec()
-    .then(meal => {
-        res.render('meals/show', {meal: meal});
-    })
-    .catch(err => console.log(err));
-});
+router.get('/:id', mealShow);
 
 // Edit route
-router.get('/:id/edit', checkMealOwnership, (req, res) => {
-    Meal.findById(req.params.id)
-    .then(meal => res.render('meals/edit', {meal: meal}))
-    .catch(err => console.log(err));
-});
+router.get('/:id/edit', checkMealOwnership, mealEdit);
 
 // Update route
-router.put('/:id', checkMealOwnership, (req, res) => {
-    Meal.findByIdAndUpdate(req.params.id, req.body.meal)
-    .then(meal => {
-        req.flash('success', 'Meal updated');
-        res.redirect('/meals/'+ req.params.id);
-    })
-    .catch(err => console.log(err));
-});
+router.put('/:id', checkMealOwnership, mealUpdate);
 
 // Delete Route
-router.delete('/:id', checkMealOwnership, (req, res) => {
-    Meal.findByIdAndDelete(req.params.id)
-    .then(() => {
-        req.flash('success', 'Successfully deleted meal');
-        res.redirect('/meals');
-    })
-    .catch(err => console.log(err));
-});
+router.delete('/:id', checkMealOwnership, mealDelete);
 
 module.exports = router;

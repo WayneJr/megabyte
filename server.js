@@ -30,7 +30,7 @@ app.use(session({
 }))
 app.use(methodOverride('_method'));
 app.use(flash());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 app.use(passport.initialize());
 app.use(passport.session());
