@@ -22,10 +22,12 @@
         <p>
             <em>Submitted by <%= meal.author.name %></em>
         </p>
+    <% if (currentUser && meal.author.id.equals(currentUser._id)) { %>
         <a href="/meals/<%= meal._id %>/edit" class="ui inverted green button">Edit</a>
         <form id="delete" action="/meals/<%= meal._id %>?_method=DELETE" method="POST">
             <button type="submit" class="ui inverted red button">Delete</button>
         </form>
+    <% } %>
     </div>
 
     <div style="width: 100%; margin-bottom: 1em;" class="ui main text secondary container segment">
@@ -44,12 +46,14 @@
                         <span class="date">10 days ago</span>
                     </div>
                     <div class="text"><%= comment.text %></div>
+                    <% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
                     <div class="actions">
                         <a href="/meals/<%= meal._id %>/comments/<%= comment._id %>/edit" class="reply">Edit</a>
                         <form id="delete" action="/meals/<%= meal._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
                             <a onclick="$(this).closest('form').submit()" class="reply">Delete</a>
                         </form>
                     </div>
+                    <% } %>
                 </div>
             </div>
         <% }) %> 

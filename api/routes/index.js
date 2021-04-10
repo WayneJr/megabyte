@@ -1,34 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../../models/user');
+
 const passport = require('passport');
+const { indexRegister, showRegister, indexLanding, showLogin } = require('../controllers');
 
 
-router.get('/', (req, res) => {
-    res.render('meals/landing');
-});
+router.get('/', indexLanding);
 
-router.get('/register', (req, res) => {
-    res.render('register');
-});
+router.get('/register', showRegister);
 
-router.post('/register', (req, res) => {
-    User.register(new User({name: req.body.name, username: req.body.username}), req.body.password, (err, user) => {
-        if (err) {
-            console.log(err);
-            return res.render('register');
-        }
-        passport.authenticate('local')(req, res, () => {
-            res.redirect('/meals');
-        });
-    });
-});
+router.post('/register', indexRegister);
 
 
 // Login Functionality
-router.get('/login', (req, res) => {
-    res.render('login');
-});
+router.get('/login', showLogin);
 
 
 router.post('/login', passport.authenticate('local', {
