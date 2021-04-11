@@ -18,7 +18,8 @@ router.get('/login', showLogin);
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/meals',
-    failureRedirect: '/login'
+    failureRedirect: '/login',
+    failureFlash: true
 }), (req, res) => {
 });
 
