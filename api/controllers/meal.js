@@ -41,7 +41,7 @@ function createMeal(req, res) {
             newMeal.image = result.url;
             console.log(newMeal);
             const theMeal = await Meal.create(newMeal);
-            // req.flash('success', 'New Meal Created');
+            req.flash('success', 'New Meal Created');
             return res.status(200).redirect('/meals')
 
             
