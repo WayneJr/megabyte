@@ -1,4 +1,5 @@
 const express = require('express');
+const { multerUploads } = require('../../config/multer');
 const router = express.Router();
 
 const { mealIndex, mealNew, createMeal, mealEdit, mealShow, mealUpdate, mealDelete } = require('../controllers/meal');
@@ -11,7 +12,7 @@ router.get('/', mealIndex);
 router.get('/new', isLoggedIn, mealNew)
 
 // Create route
-router.post('/', isLoggedIn, createMeal);
+router.post('/', isLoggedIn, multerUploads, createMeal);
 
 // Show route
 router.get('/:id', mealShow);

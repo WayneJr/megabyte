@@ -1,3 +1,5 @@
+const { uploader } = require('../../config/cloudinary');
+const { dataUri } = require('../../config/multer');
 const Meal = require('../../models/meal');
 
 function mealIndex(req, res) {
@@ -15,20 +17,47 @@ function mealNew(req, res) {
 }
 
 function createMeal(req, res) {
-    const newMeal = req.body.meal;
+    // Cloudinary image upload
+
+    // console.log(req.file);
     const author = {
         id: req.user._id,
         name: req.user.name,
         username: req.user.username
     };
-    newMeal.author = author;
-    Meal.create(newMeal, (err, meal) => {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect('/meals');
-        }
-    });
+    const newMeal = {
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        author: author
+    };
+
+    
+
+    if (req.file) {
+        const file = dataUri(req).content;
+        return uploader.upload(file).then(async result => {
+            console.log(result);
+            newMeal.image = result.url;
+            console.log(newMeal);
+            const theMeal = await Meal.create(newMeal);
+            // req.flash('success', 'New Meal Created');
+            return res.status(200).redirect('/meals')
+
+            
+            // Meal.create(newMeal, (err, meal) => {
+            //     if (err) {
+            //         console.log(err);
+            //     } else {
+            //         res.redirect('/meals');
+            //     }
+            // });
+
+        }).catch(err => res.status(400).json({
+              message: "Something went wrong while processing your request",
+              data: { err }
+          }));
+    }
 
 }
 
