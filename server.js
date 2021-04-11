@@ -1,8 +1,4 @@
-const { cloudinaryConfig } = require('./config/cloudinary');
-
-require('dotenv').config();
-
-
+// require('dotenv').config();
 const express    = require('express'),
       app        = express(),
       port       = process.env.PORT || 3000,
@@ -18,7 +14,8 @@ const express    = require('express'),
       commentRoutes = require('./api/routes/comment'),
       authRoutes = require('./api/routes/index'),
       User       = require('./models/user');
-
+      
+const { cloudinaryConfig } = require('./config/cloudinary');
 // Remember to remove the dev dburl before pushing to git
 
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true})
