@@ -4,22 +4,22 @@
     <div class="column">
         <h1 style="text-align: center">Add A New Dish</h1>
         <div style="width: 40%; margin: 0 auto">
-            <form class="ui form segment formPadding" action="/meals" method="POST">
+            <form class="ui form segment formPadding" action="/meals" enctype="multipart/form-data" method="POST">
                 <div class="field">
                     <label>Name</label>
-                    <input type="text" name="meal[name]" placeholder="Name">
+                    <input type="text" name="name" placeholder="Name">
                 </div>
                 <div class="field">
                     <label>Image</label>
-                    <input type="text" name="meal[image]" placeholder="Image">
+                    <input type="file" name="image" placeholder="Image">
                 </div>
                 <div class="field">
                     <label>Description</label>
-                    <input type="text" name="meal[description]" placeholder="Description">
+                    <input type="text" name="description" placeholder="Description">
                 </div>
                 <div class="field">
                     <label>Price</label>
-                    <input type="number" name="meal[price]" placeholder="Price" min="0.01" step="0.01">
+                    <input type="number" name="price" placeholder="Price" min="0.01" step="0.01">
                 </div>
                 <div class="field">
                     <button class="ui teal basic button" type="submit">Add Dish</button>
