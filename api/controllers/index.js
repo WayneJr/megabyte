@@ -25,4 +25,8 @@ function showLogin(req, res) {
 }
 
 
-module.exports = {indexLanding, showRegister, indexRegister, showLogin};
+function showAbout(req, res) {
+    res.render('about');
+}
+
+module.exports = {indexLanding, showRegister, indexRegister, showLogin, showAbout};

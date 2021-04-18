@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const passport = require('passport');
-const { indexRegister, showRegister, indexLanding, showLogin } = require('../controllers');
+const { indexRegister, showRegister, indexLanding, showLogin, showAbout } = require('../controllers/index');
 
 
 router.get('/', indexLanding);
+router.get('/about', showAbout);
 
 router.get('/register', showRegister);
 
